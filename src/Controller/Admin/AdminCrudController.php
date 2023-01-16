@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Admin;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use App\Entity\Comment;
+use App\Entity\Conference;
 
 class AdminCrudController extends AbstractCrudController
 {
