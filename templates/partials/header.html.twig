@@ -1,49 +1,40 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a><img src="./img/logo.png" width="150px">
-        </a>
-{# <nav class="navbar navbar-expand-lg navbar-dark bg-secondary"> #}
-      <div class="container">
-        {# <a class="navbar-brand" href="#">ROGER RENOVATION #}
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Accueil</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="/neuf" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Neuf et Rénovation
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/construction">Construction</a></li>
-                <li><a class="dropdown-item" href="/renovation">Rénovation</a></li>
-                <li><a class="dropdown-item" href="/sols">Sols extérieurs</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/carrelage">Carrelage & Faïence</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/photo">Galerie Photo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/contact">Contact</a>
-            </li>
-           
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-warning" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </nav>
+<header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-    <div class="container my-5">
-      
-        {% block body %}{% endblock %}
+      <a href="/" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        {# <h1><img src="./img/roger-renovation/logo2.jpg"> </h1> #}
+        <h1><img src="./img/roger-renovation/logo2.jpg" width="200"></h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="/" class="active">Accueil</a></li>
+          <li class="dropdown"><a href="#"><span>Maçonnerie traditionnelle</span> <i
+                class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="/construction">Construction</a></li>
+              <li><a href="/renovation">Rénovation</a></li>
+              <li><a href="/sols">Sols extérieurs</a></li>
+              <li><a href="/autre">Autre</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Carrelage & Faïence</span> <i
+                class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="/construction">Intérieur</a></li>
+              <li><a href="/renovation">Extérieur</a></li>
+            </ul>
+          </li>
+          
+          <li><a href="#">Galerie Photo</a></li>
+          <li><a href="/contact">Contact</a></li>
+      </nav><!-- .navbar -->
+
     </div>
+  </header><!-- End Header -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="main.js"></script>
+    
