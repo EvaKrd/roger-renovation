@@ -7,8 +7,6 @@ parameters:
 
 services:
     # default configuration for services in *this* file
-    Doctrine\Bundle\DoctrineBundle\Command\Proxy\RunSqlDoctrineCommand:
-        arguments: ['@Doctrine\Bundle\DoctrineBundle\Dbal\ManagerRegistryAwareConnectionProvider']
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les photos{% endblock %}
+
+{% block body %}
+	<h1>Gérer les photos</h1>
+    <a href="{{ path("admin_pictures_add") }}" class="btn blue">Ajouter une photo</a>
+	<table class="table striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Lien du fichier</th>
+				<th>Description</th>
+				<th>Etat</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+        {% for picture in pictures %}            
+			<tr>
+				<td>{{picture.id}}</td>
+				<td>{{picture.file_name}}</td>
+				<td>{{picture.description}}</td>
+				<td>{{picture.etat}}</td>
+				<td class="text-center">
+                    <a href="{{ path("admin_picture_edit", {id: picture.id}) }}" class="btn blue">Modifier</a>
+                </td>
+			</tr>
+        {% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
