@@ -2,18 +2,16 @@
 
 namespace App\Form;
 
-use App\Entity\Picture;
+use App\Entity\PictureDescription;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PictureType extends AbstractType
+class PictureDescriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('file_name')
-            ->add('etat')
             ->add('description')
         ;
     }
@@ -21,7 +19,7 @@ class PictureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Picture::class,
+            'data_class' => PictureDescription::class,
         ]);
     }
 }

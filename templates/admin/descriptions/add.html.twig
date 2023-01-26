@@ -1,0 +1,12 @@
+{% block header %}
+            {% include "./admin/header.html.twig" %}
+{% endblock %}
+
+{# {% block title %}Ajouter une photo{% endblock %} #}
+
+{% block body %}
+    <br><h2>Ajouter une description</h2>
+    {{ form(form) }}
+     {{ include('admin/descriptions/_form.html.twig') }}
+     <a href="{{ path('admin_descriptions_home') }}">Retour vers la liste des photos</a>
+{% endblock %}

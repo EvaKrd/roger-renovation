@@ -2,12 +2,13 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Picture;
-use App\Form\PictureType;
+use App\Entity\Pictures;
+use App\Form\PicturesType;
 use App\Entity\PictureDescription;
-use App\Repository\PictureRepository;
+use App\Form\PictureDescriptionType;
+use App\Repository\PicturesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;   
 use Symfony\Component\HttpFoundation\Response;  
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -15,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 
 
-#[Route('/admin', name: 'admin')]
+#[Route('/admin', name: 'admin_')]
 
 class AdminController extends AbstractController
 {
@@ -27,11 +28,11 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/picture/add', name: 'picture_add')]
+    #[Route('/pictures/add', name: 'pictures_add')]
     public function create( Request $request, PersistenceManagerRegistry $doctrine)
     {
-        $picture = new Picture;
-        $form = $this->createForm(PictureType::class, $picture);
+        $picture = new Pictures;
+        $form = $this->createForm(PicturesType::class, $picture);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -42,10 +43,30 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_home');
         }
 
-        return $this->render('admin/picture/add.html.twig', [
+        return $this->render('admin/pictures/add.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
+    #[Route('/descriptions/addDescription', name: 'descriptions_addDescription')]
+    public function createDescription( Request $request, PersistenceManagerRegistry $doctrine)
+    {
+        $description = new PictureDescription;
+        $form = $this->createForm(PictureDescriptionType::class, $description);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $doctrine->getManager();
+            $em->persist($description);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_home');
+        }
+
+        return $this->render('admin/descriptions/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    
 
 }

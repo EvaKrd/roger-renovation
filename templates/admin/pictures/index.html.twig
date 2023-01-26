@@ -1,9 +1,11 @@
-{% extends 'base.html.twig' %}
+{# {% extends './admin/index.html.twig' %} #}
+{% block header %}
+            {% include "./admin/header.html.twig" %}
+{% endblock %}
 
-{% block title %}Gérer les photos{% endblock %}
+{% block title %}<br><h2>Gérer les photos</h2>{% endblock %}
 
 {% block body %}
-	<h1>Gérer les photos</h1>
     <a href="{{ path("admin_pictures_add") }}" class="btn blue">Ajouter une photo</a>
 	<table class="table striped">
 		<thead>
@@ -16,14 +18,15 @@
 			</tr>
 		</thead>
 		<tbody>
-        {% for picture in pictures %}            
+        {% for picture in pictures %}     	       
 			<tr>
 				<td>{{picture.id}}</td>
 				<td>{{picture.file_name}}</td>
 				<td>{{picture.description}}</td>
 				<td>{{picture.etat}}</td>
 				<td class="text-center">
-                    <a href="{{ path("admin_picture_edit", {id: picture.id}) }}" class="btn blue">Modifier</a>
+                    <a href="{{ path("admin_pictures_edit", {id: picture.id}) }}" class="btn blue">Modifier</a>
+					{{ include('pictures/_delete_form.html.twig') }}
                 </td>
 			</tr>
         {% endfor %}

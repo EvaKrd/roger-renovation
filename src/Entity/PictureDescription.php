@@ -18,7 +18,7 @@ class PictureDescription
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'description', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'description', targetEntity: Pictures::class)]
     private Collection $pictures;
 
     public function __construct()
@@ -30,7 +30,6 @@ class PictureDescription
     {
         return $this->id;
     }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -42,6 +41,11 @@ class PictureDescription
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->description;
+    }
+
 
     /**
      * @return Collection<int, Picture>
@@ -51,7 +55,7 @@ class PictureDescription
         return $this->pictures;
     }
 
-    public function addPicture(Picture $picture): self
+    public function addPicture(Pictures $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
@@ -61,7 +65,7 @@ class PictureDescription
         return $this;
     }
 
-    public function removePicture(Picture $picture): self
+    public function removePicture(Pictures $picture): self
     {
         if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)

@@ -1,8 +1,24 @@
-{% block title %}Hello AdminController!{% endblock %}
+<!--
+=========================================================
+* Paper Dashboard 2 - v2.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../paper-dashboard-master/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../paper-dashboard-master/assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Paper Dashboard 2 by Creative Tim
@@ -12,24 +28,24 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="../paper-dashboard-master/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../paper-dashboard-master/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
-{% block body %}
+
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
         <a href="https://www.creative-tim.com" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="../img/roger-renovation/logo2.jpg">
+            <img src="../assets/img/logo-small.png">
           </div>
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Roger Renovation
+          Creative Tim
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -37,34 +53,52 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+          <li class="active ">
+            <a href="./dashboard.html">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="./icons.html">
+              <i class="nc-icon nc-diamond"></i>
+              <p>Icons</p>
+            </a>
+          </li>
+          <li>
+            <a href="./map.html">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>Maps</p>
+            </a>
+          </li>
+          <li>
+            <a href="./notifications.html">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>Notifications</p>
+            </a>
+          </li>
           <li>
             <a href="./user.html">
               <i class="nc-icon nc-single-02"></i>
-              <p>Mon compte</p>
-            </a>
-          </li>
-          <li>
-            <a href="/admin/pictures">
-              <i class="nc-icon nc-album-2"></i>
-              <p>Photos</p>
-            </a>
-          </li>
-           <li>
-            <a href="/admin/descriptions">
-              <i class="nc-icon nc-album-2"></i>
-              <p>Descriptions</p>
+              <p>User Profile</p>
             </a>
           </li>
           <li>
             <a href="./tables.html">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>Formulaires</p>
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Table List</p>
             </a>
           </li>
           <li>
-            <a href="./tables.html">
-              <i class="nc-icon nc-calendar-60"></i>
-              <p>Calendrier</p>
+            <a href="./typography.html">
+              <i class="nc-icon nc-caps-small"></i>
+              <p>Typography</p>
+            </a>
+          </li>
+          <li class="active-pro">
+            <a href="./upgrade.html">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>Upgrade to PRO</p>
             </a>
           </li>
         </ul>
@@ -353,5 +387,3 @@
 </body>
 
 </html>
-
-{% endblock %}
