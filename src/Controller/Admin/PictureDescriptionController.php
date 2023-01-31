@@ -13,10 +13,10 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-#[Route('/admin', name: 'admin_descriptions_')]
+// #[Route('/admin', name: 'admin_descriptions_')]
 class PictureDescriptionController extends AbstractController
 {
-    #[Route('/descriptions', name: 'home')]
+    #[Route('admin/descriptions', name: 'admin_descriptions_home', methods: ['GET'])]
     public function index(PictureDescriptionRepository $pictureDescriptionRepository): Response
     {
        $descriptions = $pictureDescriptionRepository->findAll();
@@ -26,7 +26,7 @@ class PictureDescriptionController extends AbstractController
         ]);
     }
 
-    #[Route('/addDescription', name: 'addDescription')]
+    #[Route('descriptions/add', name: 'admin_descriptions_add', methods: ['GET', 'POST'])]
     public function addDescriptions(Request $request, CacheInterface $cache, PersistenceManagerRegistry $doctrine)
     {
         $description = new PictureDescription;
@@ -47,7 +47,7 @@ class PictureDescriptionController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'edit')]
+    #[Route('descriptions/edit/{id}', name: 'admin_descriptions_edit',  methods: ['GET', 'POST'])]
     public function EditPicture(PictureDescription $description, Request $request, CacheInterface $cache,  PersistenceManagerRegistry $doctrine)
     {
         $form = $this->createForm(PictureDescriptionType::class, $description);
@@ -73,14 +73,12 @@ class PictureDescriptionController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'delete')]
-    public function delete(PictureDescription $description, PersistenceManagerRegistry $doctrine):RedirectResponse
+    #[Route('descriptions/delete/{id}', name: 'admin_descriptions_delete', methods: ['POST'])]
+    public function delete(PictureDescription $description, PersistenceManagerRegistry $doctrine, PictureDescriptionRepository $pictureRepository, Request $request):Response
     {
-        $em = $doctrine->getManager();
-        $em->remove($description);
-        $em->flush();
-
-        $this->addFlash('message', 'Description supprimée avec succès');
-        return $this->redirectToRoute('admin_description_home');
+        if ($this->isCsrfTokenValid('delete'.$description->getId(), $request->request->get('_token'))) {
+            $pictureRepository->remove($description, true);
+        }
+        return $this->redirectToRoute('admin_descriptions_home', [], Response::HTTP_SEE_OTHER);
     }
 }
