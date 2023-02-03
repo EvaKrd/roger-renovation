@@ -6,7 +6,8 @@
 
 {% block body %}
     <br><h2>Ajouter une description</h2>
-    {{ form(form) }}
+
      {{ include('admin/descriptions/_form.html.twig') }}
+     
      <a href="{{ path('admin_descriptions_home') }}">Retour vers la liste des descriptions</a>
 {% endblock %}

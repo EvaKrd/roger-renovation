@@ -21,12 +21,12 @@
         {% for picture in pictures %}     	       
 			<tr>
 				<td>{{picture.id}}</td>
-				<td>{{picture.file_name}}</td>
+				<td><img src='../uploads/{{picture.Filename}}'</td>
 				<td>{{picture.description}}</td>
 				<td>{{picture.etat}}</td>
 				<td class="text-center">
                     <a href="{{ path("admin_pictures_edit", {id: picture.id}) }}" class="btn blue">Modifier</a>
-					{{ include('pictures/_delete_form.html.twig') }}
+					{{ include('admin/pictures/_delete_form.html.twig') }}
                 </td>
 			</tr>
         {% endfor %}

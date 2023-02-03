@@ -24,6 +24,10 @@
 					<a href="{{ path("admin_descriptions_delete", {id: description.id}) }}" class="btn blue">Supprimer</a>
                 </td>
 			</tr>
+			 {% else %}
+            <tr>
+                <td colspan="5">Aucune description trouvée</td>
+            </tr>
         {% endfor %}
 		</tbody>
 	</table>

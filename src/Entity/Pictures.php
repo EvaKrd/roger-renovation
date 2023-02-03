@@ -16,7 +16,23 @@ class Pictures
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $file_name = null;
+    private $Filename;
+
+    public function getFilename(): ?string
+    {
+        return $this->Filename;
+    }
+
+    public function setFilename(string $Filename): self
+    {
+        $this->Filename = $Filename;
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->Filename;
+    }
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $etat = null;
@@ -35,22 +51,6 @@ class Pictures
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getFileName(): ?string
-    {
-        return $this->file_name;
-    }
-
-    public function setFileName(string $file_name): self
-    {
-        $this->file_name = $file_name;
-
-        return $this;
-    }
-    public function __toString(): string
-    {
-        return $this->file_name;
     }
 
     public function getEtat(): ?string
@@ -77,33 +77,33 @@ class Pictures
         return $this;
     }
 
-    /**
-     * @return Collection<int, Images>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
+    // /**
+    //  * @return Collection<int, Images>
+    //  */
+    // public function getImages(): Collection
+    // {
+    //     return $this->images;
+    // }
 
-    public function addImage(Images $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setRelation($this);
-        }
+    // public function addImage(Images $image): self
+    // {
+    //     if (!$this->images->contains($image)) {
+    //         $this->images->add($image);
+    //         $image->setRelation($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeImage(Images $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getRelation() === $this) {
-                $image->setRelation(null);
-            }
-        }
+    // public function removeImage(Images $image): self
+    // {
+    //     if ($this->images->removeElement($image)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($image->getRelation() === $this) {
+    //             $image->setRelation(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

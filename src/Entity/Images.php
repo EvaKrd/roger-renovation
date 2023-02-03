@@ -17,6 +17,9 @@ class Images
     #[ORM\JoinColumn(nullable: false)]
     private ?Pictures $relation = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +33,18 @@ class Images
     public function setRelation(?Pictures $relation): self
     {
         $this->relation = $relation;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

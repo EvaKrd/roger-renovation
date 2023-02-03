@@ -13,43 +13,61 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-#[Route('/admin', name: 'admin_pictures_')]
+
+// #[Route('/admin', name: 'admin_pictures_')]
 class PicturesController extends AbstractController
 {
-    #[Route('/pictures', name: 'home')]
+    #[Route('admin/pictures', name: 'admin_pictures_home', methods: ['GET'])]
     public function index(PicturesRepository $picturesRepository): Response
     {
-        $pictures = $picturesRepository->findAll();
-        return $this->render('admin/pictures/index.html.twig', [
-            'controller_name' => 'PicturesController',
-            'pictures' => $pictures,
+        return $this->render    ('admin/pictures/index.html.twig', [
+            'pictures' => $picturesRepository->findAll(),
         ]);
     }
 
-    #[Route('/add', name: 'add')]
-    public function addPictures(Request $request, CacheInterface $cache, PersistenceManagerRegistry $doctrine)
+
+    #[Route('pictures/add', name: 'admin_pictures_add', methods: ['GET', 'POST'])]
+    public function addDescriptions(Request $request, PicturesRepository $picturesRepository, SluggerInterface $slugger):Response
     {
-        $picture = new Pictures;
+        $picture = new Pictures();
         $form = $this-> createForm(PicturesType::class, $picture);   
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $em = $doctrine->getManager();
-            $em->persist($picture);
-            $em->flush();
 
-            $cache->delete('pictures_list');
+            $imageFile = $form->get('Filename')->getData();
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
 
-            return $this->redirectToRoute('admin_pictures_home');
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $picture->setFilename($newFilename);
+            }
+            $picturesRepository->save($picture, true);
+            return $this->redirectToRoute('admin_pictures_home', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('admin/pictures/add.html.twig', [
-            'form' => $form->createView()
+        return $this->renderForm('admin/pictures/add.html.twig', [
+            'form' => $form,
         ]);
     }
-
-    #[Route('/edit/{id}', name: 'edit')]
-    public function EditPicture(Pictures $picture, Request $request, CacheInterface $cache,  PersistenceManagerRegistry $doctrine,  PicturesService $picturesService)
+    #[Route('pictures/edit/{id}', name: 'admin_pictures_edit',  methods: ['GET', 'POST'])]
+    public function EditPicture(Pictures $picture, Request $request, PicturesRepository $picturesRepository): Response
     {
         $form = $this->createForm(PicturesType::class, $picture);
 
@@ -57,33 +75,23 @@ class PicturesController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-            // $file_name = $form->get('file_name')->getData();
+            $picturesRepository->save($picture, true);
 
-            $em = $doctrine->getManager();
-            $em->persist($picture);
-            $em->flush();
-
-            // On supprime le cache
-            $cache->delete('pictures_list');
-
-            return $this->redirectToRoute('admin_pictures_home');
+            return $this->redirectToRoute('admin_pictures_home', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/pictures/edit.html.twig', [
-            'form' => $form->createView()
+        return $this->renderForm('admin/pictures/edit.html.twig', [
+            'picture' => $picture,
+            'form' => $form,
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'delete')]
-    public function delete(Pictures $picture, PersistenceManagerRegistry $doctrine):RedirectResponse
+    #[Route('pictures/delete/{id}', name: 'admin_pictures_delete', methods: ['POST'])]
+    public function delete(Pictures $picture, PicturesRepository $picturesRepository, Request $request):Response
     {
-
-        $em = $doctrine->getManager();
-        $em->remove($picture);
-        $em->flush();
-
-        $this->addFlash('message', 'Photo supprimée avec succès');
-        return $this->redirectToRoute('admin_pictures_home');
+        if ($this->isCsrfTokenValid('delete'.$picture->getId(), $request->request->get('_token'))) {
+            $picturesRepository->remove($picture, true);
+        }
+        return $this->redirectToRoute('admin_pictures_home', [], Response::HTTP_SEE_OTHER);
     }
-
 }
