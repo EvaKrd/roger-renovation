@@ -43,6 +43,11 @@ class Pictures
     #[ORM\OneToMany(mappedBy: 'relation', targetEntity: Images::class)]
     private Collection $images;
 
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?PictureCategory $pictureCategory = null;
+
+
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -106,4 +111,18 @@ class Pictures
 
     //     return $this;
     // }
+
+    public function getPictureCategory(): ?PictureCategory
+    {
+        return $this->pictureCategory;
+    }
+
+    public function setPictureCategory(?PictureCategory $pictureCategory): self
+    {
+        $this->pictureCategory = $pictureCategory;
+
+        return $this;
+    }
+
+   
 }

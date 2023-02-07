@@ -60,6 +60,7 @@ class PicturesType extends AbstractType
                 ],
                 ])
             ->add('description')
+            ->add('pictureCategory')
         ;
     }
 

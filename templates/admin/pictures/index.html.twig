@@ -4,7 +4,6 @@
 {% endblock %}
 
 {% block title %}<br><h2>Gérer les photos</h2>{% endblock %}
-
 {% block body %}
     <a href="{{ path("admin_pictures_add") }}" class="btn blue">Ajouter une photo</a>
 	<table class="table striped">
@@ -12,6 +11,7 @@
 			<tr>
 				<th>ID</th>
 				<th>Lien du fichier</th>
+				<th>Catégorie</th>
 				<th>Description</th>
 				<th>Etat</th>
 				<th>Actions</th>
@@ -22,6 +22,7 @@
 			<tr>
 				<td>{{picture.id}}</td>
 				<td><img src='../uploads/{{picture.Filename}}' class="image1"></td>
+				<td>{{picture.pictureCategory}}</td>
 				<td>{{picture.description}}</td>
 				<td>{{picture.etat}}</td>
 				<td class="text-center">
