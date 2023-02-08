@@ -16,11 +16,11 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 
 
-#[Route('/admin', name: 'admin_')]
+// #[Route('/admin', name: 'admin_')]
 
 class AdminController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    #[Route('/admin', name: 'admin_home')]
     public function index()
     {
         return $this->render('admin/index.html.twig', [
@@ -28,45 +28,45 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/pictures/add', name: 'pictures_add')]
-    public function create( Request $request, PersistenceManagerRegistry $doctrine)
-    {
-        $picture = new Pictures;
-        $form = $this->createForm(PicturesType::class, $picture);
-        $form->handleRequest($request);
+    // #[Route('/pictures/add', name: 'pictures_add')]
+    // public function create( Request $request, PersistenceManagerRegistry $doctrine)
+    // {
+    //     $picture = new Pictures;
+    //     $form = $this->createForm(PicturesType::class, $picture);
+    //     $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $em = $doctrine->getManager();
-            $em->persist($picture);
-            $em->flush();
+    //     if($form->isSubmitted() && $form->isValid()){
+    //         $em = $doctrine->getManager();
+    //         $em->persist($picture);
+    //         $em->flush();
 
-            return $this->redirectToRoute('admin_home');
-        }
+    //         return $this->redirectToRoute('admin_home');
+    //     }
 
-        return $this->render('admin/pictures/add.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
+    //     return $this->render('admin/pictures/add.html.twig', [
+    //         'form' => $form->createView()
+    //     ]);
+    // }
 
-    #[Route('/descriptions/addDescription', name: 'descriptions_addDescription')]
-    public function createDescription( Request $request, PersistenceManagerRegistry $doctrine)
-    {
-        $description = new PictureDescription;
-        $form = $this->createForm(PictureDescriptionType::class, $description);
-        $form->handleRequest($request);
+    // #[Route('/descriptions/addDescription', name: 'descriptions_addDescription')]
+    // public function createDescription( Request $request, PersistenceManagerRegistry $doctrine)
+    // {
+    //     $description = new PictureDescription;
+    //     $form = $this->createForm(PictureDescriptionType::class, $description);
+    //     $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $em = $doctrine->getManager();
-            $em->persist($description);
-            $em->flush();
+    //     if($form->isSubmitted() && $form->isValid()){
+    //         $em = $doctrine->getManager();
+    //         $em->persist($description);
+    //         $em->flush();
 
-            return $this->redirectToRoute('admin_home');
-        }
+    //         return $this->redirectToRoute('admin_home');
+    //     }
 
-        return $this->render('admin/descriptions/add.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
+    //     return $this->render('admin/descriptions/add.html.twig', [
+    //         'form' => $form->createView()
+    //     ]);
+    // }
     
 
 }
