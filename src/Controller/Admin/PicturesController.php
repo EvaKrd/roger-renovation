@@ -94,4 +94,5 @@ class PicturesController extends AbstractController
         }
         return $this->redirectToRoute('admin_pictures_home', [], Response::HTTP_SEE_OTHER);
     }
+
 }

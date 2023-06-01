@@ -58,7 +58,7 @@ class PictureCategoryController extends AbstractController
         ]);
     }
 
-    #[Route('categories/{id}/delete', name: 'admin_categories_delete', methods: ['POST'])]
+    #[Route('categories/delete/{id}', name: 'admin_categories_delete', methods: ['POST'])]
     public function delete(PictureCategory $category, PictureCategoryRepository $pictureCategoryRepository, Request $request):Response
     {
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {

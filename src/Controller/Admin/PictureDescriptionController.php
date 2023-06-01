@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 // #[Route('/admin', name: 'admin_descriptions_')]
 class PictureDescriptionController extends AbstractController
 {
@@ -59,7 +60,7 @@ class PictureDescriptionController extends AbstractController
         ]);
     }
 
-    #[Route('descriptions/{id}/delete', name: 'admin_descriptions_delete', methods: ['POST'])]
+    #[Route('descriptions/delete/{id}', name: 'admin_descriptions_delete', methods: ['GET', 'POST'])]
     public function delete(PictureDescription $description, PictureDescriptionRepository $pictureDescriptionRepository, Request $request):Response
     {
         if ($this->isCsrfTokenValid('delete'.$description->getId(), $request->request->get('_token'))) {
