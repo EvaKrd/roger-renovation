@@ -1,0 +1,34 @@
+{% block header %}
+            {% include "./admin/header.html.twig" %}
+{% endblock %}
+
+{% block title %}<br><h2>Gérer les descriptions</h2>{% endblock %}
+
+{% block body %}
+    <a href="{{ path("admin_descriptions_add") }}" class="btn blue">Ajouter une description</a>
+	<table class="table striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Description</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+        {% for description in descriptions %}     	       
+			<tr>
+				<td>{{description.id}}</td>
+				<td>{{description.description}}</td>
+				<td class="text-center">
+                    <a href="{{ path("admin_descriptions_edit", {id: description.id}) }}" class="btn blue">Modifier</a>
+					<a href="{{ path("admin_descriptions_delete", {id: description.id}) }}" class="btn blue">Supprimer</a>
+                </td>
+			</tr>
+			 {% else %}
+            <tr>
+                <td colspan="5">Aucune description trouvée</td>
+            </tr>
+        {% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

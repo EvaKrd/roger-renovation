@@ -1,0 +1,34 @@
+{% block header %}
+            {% include "./admin/header.html.twig" %}
+{% endblock %}
+
+{% block title %}<br><h2>Gérer les catégories</h2>{% endblock %}
+
+{% block body %}
+    <a href="{{ path("admin_categories_add") }}" class="btn blue">Ajouter une catégorie</a>
+	<table class="table striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Catégorie</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+        {% for category in categories %}     	       
+			<tr>
+				<td>{{category.id}}</td>
+				<td>{{category.category}}</td>
+				<td class="text-center">
+                    <a href="{{ path("admin_categories_edit", {id: category.id}) }}" class="btn blue">Modifier</a>
+					<a href="{{ path("admin_categories_delete", {id: category.id}) }}" class="btn blue">Supprimer</a>
+                </td>
+			</tr>
+			 {% else %}
+            <tr>
+                <td colspan="5">Aucune catégorie trouvée</td>
+            </tr>
+        {% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

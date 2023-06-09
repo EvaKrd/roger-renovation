@@ -1,0 +1,13 @@
+{% block header %}
+            {% include "./admin/header.html.twig" %}
+{% endblock %}
+
+{# {% block title %}Ajouter une photo{% endblock %} #}
+
+{% block body %}
+    <br><h2>Ajouter une catégorie</h2>
+
+     {{ include('admin/categories/_form.html.twig') }}
+     
+     <a href="{{ path('admin_categories_home') }}">Retour vers la liste des catégories</a>
+{% endblock %}

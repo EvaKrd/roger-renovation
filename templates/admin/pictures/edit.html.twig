@@ -1,0 +1,13 @@
+{% block header %}
+            {% include "admin/pictures/header.html.twig" %}
+{% endblock %}
+
+{# {% block title %}Ajouter une photo{% endblock %} #}
+
+{% block body %}
+    <br><h2>Modifier une description</h2>
+    {{ include('admin/pictures/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('admin_pictures_home') }}">Retour vers la liste des photos</a>
+
+{% endblock %}
